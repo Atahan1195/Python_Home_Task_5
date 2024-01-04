@@ -13,16 +13,15 @@ class Group:
         self.__students = []
 
     def add_student(self, student):
-        try:
-            if not isinstance(student, Student):
-                raise TypeError('Not a Student')
-            if student in self.__students:
-                raise ValueError('Student already in group')
-            if len(self.__students) == self.max_students:
-                raise StudentsLimitError(self.max_students)
+        if not isinstance(student, Student):
+            logging.error(f'Error adding student to group')
+            raise TypeError('Not a Student')
+        if student in self.__students:
+            logging.error(f'Error adding student to group')
+            raise ValueError('Student already in group')
+        if len(self.__students) == self.max_students:
+            logging.error(f'Error adding student to group')
+            raise StudentsLimitError(self.max_students)
 
-            self.__students.append(student)
-            logging.info(f'Student {student.name} added to group {self.title}')
-
-        except Exception as e:
-            logging.error(f'Error adding student to group {self.title}: {str(e)}')
+        self.__students.append(student)
+        logging.info(f'Student {student.name} added to group {self.title}')
